@@ -10,3 +10,7 @@ mesma superclasse, além da herança permirtir o polimorfismo (alto grau de depe
 a implementação múltipla, assim o código abstrato é quebrado em interfaces para evitar a herança completa e seleção do que vai ser implementado.
 Então a herança múltipla é substituida pela a implementação de interfaces múltiplas. Sobrescrita se trata de reescrever na subclasse o metódo da
 superclasse de maneira diferente. Sobrecarga é a criação de vários metódos com o mesmo nome, mas com parâmetros diferentes. 
+
+Aula 23/09/2024
+
+A conexão com o banco de dados é feita por meio da dependência no arquivo xml do projeto maven
