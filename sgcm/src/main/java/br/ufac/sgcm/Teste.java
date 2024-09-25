@@ -5,9 +5,12 @@ import java.util.List;
 
 import br.ufac.sgcm.dao.ConexaoDB;
 import br.ufac.sgcm.dao.EspecialidadeDao;
+import br.ufac.sgcm.dao.ProfissionalDao;
 import br.ufac.sgcm.model.Especialidade;
 import br.ufac.sgcm.model.Unidade;
 import br.ufac.sgcm.model.Profissional;
+
+@SuppressWarnings("unused")
 public class Teste {
     public static void main(String[] args) {
     
@@ -82,5 +85,13 @@ public class Teste {
         System.out.println(e);
     
     }
+
+    //Lista todos os proficionais
+    ProfissionalDao pDao = new ProfissionalDao();
+    List<Profissional> pLista = pDao.get();
+    for (Profissional p: pLista){
+        System.out.println(p.getNome()+":"+p.getEspecialidade()+":"+p.getUnidade().getNome());
+    }
+
     }
 }

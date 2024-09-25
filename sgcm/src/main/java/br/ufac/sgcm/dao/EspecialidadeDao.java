@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class EspecialidadeDao {
+public class EspecialidadeDao implements IDao<Especialidade>{
 
     Connection conexao;
     PreparedStatement ps;
@@ -19,6 +19,7 @@ public class EspecialidadeDao {
     }
     //Metódos de acesso aos dados das Especialidades (mySQL)
     //Listar todas as especialidades
+    @Override
     public List<Especialidade> get(){
         List<Especialidade> registros = new ArrayList<>();
         try {
@@ -43,6 +44,7 @@ public class EspecialidadeDao {
         }
         return registros; //Retorno da lista 
     }
+    @Override
     public List<Especialidade> get(String termoDeBusca){
         List<Especialidade> registros = new ArrayList<>();
         try {
@@ -69,7 +71,29 @@ public class EspecialidadeDao {
         }
         return registros; //Retorno da lista 
     }
+
+    //Get para retornar uma única especialidade
+    @Override
+    public Especialidade get(Long id){
+        Especialidade esp = new Especialidade();
+        String sql = "SELECT * FROM especialidade WHERE id=?";
+        try{
+            ps = conexao.prepareStatement(sql);
+            //Este set é com base no tipo que está na coluna
+            ps.setLong(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()){
+                esp.setId(rs.getLong("id"));
+                esp.setNome(rs.getString("nome"));
+            }
+        }
+        catch (SQLException e){
+           e.printStackTrace(); 
+        }
+        return esp;
+    }
     //Inserir Especialidade
+    @Override
     public int insert(Especialidade objeto){
         int registrosAfetados = 0;
         //O comando SQL não está completo pois é necessário saber o nome do objeto para a inserção
@@ -87,6 +111,7 @@ public class EspecialidadeDao {
         return registrosAfetados;
     }
     //Atualizar Especialidade 
+    @Override
     public int update(Especialidade objeto){
         int registrosAfetados = 0;
         String sql = "UPDATE especialidade SET nome=? WHERE id=?";
@@ -102,6 +127,7 @@ public class EspecialidadeDao {
     }
 
     //Excluir Especialidade
+    @Override
     public int delete(Especialidade objeto){
         int registrosAfetados = 0;
         String sql = "DELETE FROM especialidade WHERE id=?";
